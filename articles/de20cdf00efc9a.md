@@ -3,7 +3,7 @@ title: "C++ Core Guidelinesでチェックする"
 emoji: "👋"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["cpp","linux","docker"]
-published: false
+published: true
 ---
 
 # 序
