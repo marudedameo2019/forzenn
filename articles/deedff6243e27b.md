@@ -3,7 +3,7 @@ title: "MS-DOS 4.0をビルドして動かす"
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["MSDOS"]
-published: false
+published: true
 ---
 # 序
 
