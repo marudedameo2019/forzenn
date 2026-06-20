@@ -567,7 +567,7 @@ C>cd ..
 
 ![fdとvzの使用風景](/images/deedff6243e27b/qemu_msdos4.webp)
 
-# 7. まとめ
+# 6. まとめ
 
 - MSが公開していたMS-DOS 4.0をビルドしてQEMU上で動かすことができた(日本語の表示と入力は不可)
 
