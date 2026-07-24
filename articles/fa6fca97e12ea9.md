@@ -3,7 +3,7 @@ title: "郵便番号検索を実装してみた"
 emoji: "📘"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["javascript", "typescript"]
-published: false
+published: true
 ---
 # 序
 
