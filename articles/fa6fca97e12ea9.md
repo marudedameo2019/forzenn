@@ -295,10 +295,141 @@ CSV→行データの配列→Trie木構造で構築したデータをd3.jsでSV
 - serve: Vercel製静的webサーバー(crossOriginIsolated用)
 - http-server: 静的webサーバー
 
-
 # 7. 詳細
 
-は実装参照です。
+詳細は原則実装参照です。以下は形ばかり用意した図になります。
+
+## 7-1. TrieNodeによるTrie木の関係図示
+
+クラス図で書いていますが、オブジェクト図です。
+
+```mermaid
+classDiagram
+    direction TB
+
+    namespace `TrieNode<number>のオブジェクト達` {
+        class RootNode {
+            key = ""
+            parent = undefined
+            children = [NodeKanagawa]
+            value = undefined
+        }
+
+        class NodeKanagawa {
+            key = "神奈川県"
+            parent = RootNode
+            children = [NodeYoko, NodeKawasaki]
+            value = undefined
+        }
+
+        class NodeYoko {
+            key = "横"
+            parent = NodeKanagawa
+            children = [NodeHama, NodeSuka]
+            value = undefined
+        }
+
+        class NodeHama {
+            key = "浜市"
+            parent = NodeYoko
+            children = []
+            value = undefined
+        }
+
+        class NodeSuka {
+            key = "須賀市"
+            parent = NodeYoko
+            children = []
+            value = undefined
+        }
+
+        class NodeKawasaki {
+            key = "川崎市"
+            parent = NodeKanagawa
+            children = []
+            value = undefined
+        }
+    }
+
+    namespace `TrieNode<TrieNode<number>[]>(インデックス)のオブジェクト達` {
+        class RefRoot {
+            key = ""
+            parent = undefined
+            children = [RefKanagawa, RefYoko, RefHama, RefSuka, RefKawasaki]
+            value = undefined
+        }
+
+        class RefKanagawa {
+            key = "神奈川県"
+            parent = RefRoot
+            children = []
+            value = [NodeKanagawa]
+        }
+
+        class RefYoko {
+            key = "横"
+            parent = RefRoot
+            children = []
+            value = [NodeYoko]
+        }
+
+        class RefHama {
+            key = "浜市"
+            parent = RefRoot
+            children = []
+            value = [NodeHama]
+        }
+
+        class RefSuka {
+            key = "須賀市"
+            parent = RefRoot
+            children = []
+            value = [NodeSuka]
+        }
+
+        class RefKawasaki {
+            key = "川崎市"
+            parent = RefRoot
+            children = []
+            value = [NodeKawasaki]
+        }
+    }
+
+    RootNode --> NodeKanagawa : children[0]
+    NodeKanagawa --> RootNode : parent
+    NodeKanagawa --> NodeYoko : children[0]
+    NodeKanagawa --> NodeKawasaki : children[1]
+    NodeYoko --> NodeKanagawa : parent
+    NodeYoko --> NodeHama : children[0]
+    NodeHama --> NodeYoko : parent
+    NodeYoko --> NodeSuka : children[1]
+    NodeSuka --> NodeYoko : parent
+    NodeKawasaki --> NodeKanagawa : parent
+    
+    RefRoot --> RefKanagawa : children[0]
+    RefKanagawa --> RefRoot : parent
+    RefKanagawa --> NodeKanagawa : value[0]
+    RefRoot --> RefYoko : children[1]
+    RefYoko --> RefRoot : parent
+    RefYoko --> NodeYoko : value[0]
+    RefRoot --> RefHama : children[2]
+    RefHama --> RefRoot : parent
+    RefHama --> NodeHama : value[0]
+    RefRoot --> RefSuka : children[3]
+    RefSuka --> RefRoot : parent
+    RefSuka --> NodeSuka : value[0]
+    RefRoot --> RefKawasaki : children[4]
+    RefKawasaki --> RefRoot : parent
+    RefKawasaki --> NodeKawasaki : value[0]
+```
+
+## 7-2. 射影された静的構造でのTrie木表現の図示
+
+静的構造に含まれるTrie木がどんなデータ構造になっているかを表した図です。上の`TrieNode<number>`側が静的構造だとこうなります。
+
+![静的構造例](https://raw.githubusercontent.com/marudedameo2019/forzenn/refs/heads/main/images/fa6fca97e12ea9/static.svg)
+
+refTrieは似たような構造なのでこちらが分かれば分かると思います。
 
 # 8. まとめ
 
