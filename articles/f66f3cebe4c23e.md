@@ -94,7 +94,7 @@ import { fetch as fetch6, Agent as Agent6 } from "undici6";
 import { fetch as fetch8, Agent as Agent8 } from "undici8";
 ```
 
-実際に3つのケースを試してみました：
+実際に3つのケースを試してみました^[https://github.com/marudedameo2019/the-fetch-timeout/blob/main/cli_versions.js]：
 
 | ケース | 組み合わせ | 結果 |
 |--------|-----------|------|
