@@ -3,7 +3,7 @@ title: "Node.jsのfetchは「タイムアウトしない」わけではない"
 emoji: "📑"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["javascript","nodejs"]
-published: false
+published: true
 ---
 ※この記事は昨日気付いた表記の件について、ほとんどAIにまとめてもらったものです
 
