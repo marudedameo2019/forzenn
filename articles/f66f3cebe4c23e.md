@@ -5,17 +5,15 @@ type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["javascript","nodejs"]
 published: false
 ---
-# Node.jsのfetchは「タイムアウトしない」わけではない
-
 ※この記事は昨日気付いた表記の件について、ほとんどAIにまとめてもらったものです
 
-## 「fetchにはタイムアウトがない」はブラウザの話
+# 「fetchにはタイムアウトがない」はブラウザの話
 
 「fetch APIにはタイムアウトオプションがない」という話をよく見かけます。これはブラウザの話であり、Node.jsには当てはまりません。
 
 Node.jsの`fetch`は[undici](https://undici.nodejs.org/)というHTTPクライアントベースで実装されており、**デフォルトで5分（300秒）のヘッダタイムアウト**が設定されています。
 
-### 実演
+## 実演
 
 サーバーが5分10秒（310秒）応答しないAPIを用意します。
 
@@ -34,7 +32,7 @@ fetch failed 300790ms
 
 5分でタイムアウトします。
 
-## タイムアウトを変更する方法
+# タイムアウトを変更する方法
 
 undiciの`Agent`（Dispatcher）を渡すことで、fetchごとのタイムアウトを変更できます。
 
@@ -51,7 +49,7 @@ const s = await r.text(); // "hello"（310秒後）
 
 `headersTimeout: 0`で無制限になります。
 
-## バージョン不整合の問題
+# バージョン不整合の問題
 
 ここで問題があります。Node.jsのグローバル`fetch`は**Node.jsに同梱された内部undici**で動いており、npmからインストールしたundiciとは別物です。
 
@@ -70,7 +68,7 @@ InvalidArgumentError: invalid onRequestStart method
 
 というエラーになります。バージョンが合わないだけで動かさないのです。
 
-### 整合を保つには
+## 整合を保つには
 
 `fetch`と`Agent`を**同じundiciパッケージからimport**すれば整合が取れます。
 
@@ -83,7 +81,7 @@ const r = await fetch(url, { dispatcher });
 
 この場合、グローバル`fetch`（内部undici）とは無関係に、npmのundici自己的なfetchが完結するので、Node.jsのバージョンに依存しません。
 
-### 複数バージョンで比較テストする場合
+## 複数バージョンで比較テストする場合
 
 npmのalias機能を使えば、同じパッケージの複数バージョンを別名でインストールできます。
 
@@ -104,7 +102,7 @@ import { fetch as fetch8, Agent as Agent8 } from "undici8";
 | バージョン一致 | fetch6 + Agent6 | OK: hello (310065ms) |
 | 最新で揃え | fetch8 + Agent8 | OK: hello (310016ms) |
 
-## 次のリスク：挙動への暗黙の依存
+# 次のリスク：挙動への暗黙の依存
 
 ここまでの話はまだ「知っている人は対策できる」範囲です。もしあると厄介なのは、**コードがfetchのデフォルト挙動を前提に設計されている場合**です。
 
@@ -118,7 +116,7 @@ import { fetch as fetch8, Agent as Agent8 } from "undici8";
 
 逆に「fetchにはタイムアウトがない」と信じている開発者が書いたコードに、実は5分のタイムアウトが隠れていて、それがいつか障害として顕在化することもあるでしょう。
 
-## まとめ
+# まとめ
 
 | 項目 | ブラウザ | Node.js |
 |------|---------|---------|
