@@ -3,7 +3,7 @@ title: "node.jsで待機中の非同期処理を一覧する"
 emoji: "👌"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["nodejs", "async", "debug"]
-published: false
+published: true
 ---
 
 **この記事はほとんどAIに作成してもらっています**。
