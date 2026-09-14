@@ -88,7 +88,8 @@ hook.enable();
 - Mapに残っているものが「待機中の非同期処理」
 
 です。beforeとafter(とresolved)は使い道がないわけではないのですが、各イベントによる待ち合わせ状態の変更がリソースによって違うため、ここでは使用しません。
-先ほどの問題提起の例に、トラッカーと一覧を表示する`listPending`関数を足してみます。
+
+では先ほどの問題提起の例に、トラッカーと一覧を表示する`listPending`関数を足してみます。
 
 ```js
 import { createHook } from 'node:async_hooks';
